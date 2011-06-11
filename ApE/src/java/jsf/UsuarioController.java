@@ -62,6 +62,14 @@ public class UsuarioController implements Serializable {
         return pagination;
     }
 
+    public String login() {
+        if (getFacade().UsuarioLogin(current)) {
+            return "success";
+        } else {
+            return "failure";
+        }
+    }
+
     public String prepareList() {
         recreateModel();
         return "List";

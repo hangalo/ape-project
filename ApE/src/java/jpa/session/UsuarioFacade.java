@@ -4,6 +4,7 @@
  */
 package jpa.session;
 
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -18,6 +19,7 @@ public class UsuarioFacade extends AbstractFacade<Usuario> {
     @PersistenceContext(unitName = "ApEPU")
     private EntityManager em;
 
+    @Override
     protected EntityManager getEntityManager() {
         return em;
     }
@@ -26,4 +28,13 @@ public class UsuarioFacade extends AbstractFacade<Usuario> {
         super(Usuario.class);
     }
     
+    public boolean UsuarioLogin(Usuario usuario){
+        List lista = em.createNamedQuery("Usuario.findByLogin")
+                .setParameter("nomUsuario", usuario.getNomUsuario())
+                .setParameter("clave", usuario.getClave())
+                .getResultList();
+        if(lista.size() > 0)
+            return true;
+        return false;
+    }
 }

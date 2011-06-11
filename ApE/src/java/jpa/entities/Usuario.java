@@ -5,6 +5,7 @@
 package jpa.entities;
 
 import java.io.Serializable;
+import java.security.MessageDigest;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -32,13 +33,14 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Usuario.findAll", query = "SELECT u FROM Usuario u"),
     @NamedQuery(name = "Usuario.findByIdUsuario", query = "SELECT u FROM Usuario u WHERE u.idUsuario = :idUsuario"),
     @NamedQuery(name = "Usuario.findByNomUsuario", query = "SELECT u FROM Usuario u WHERE u.nomUsuario = :nomUsuario"),
+    @NamedQuery(name = "Usuario.findByLogin", query = "SELECT u FROM Usuario u WHERE u.nomUsuario = :nomUsuario AND u.clave = :clave"),
     @NamedQuery(name = "Usuario.findByEliminado", query = "SELECT u FROM Usuario u WHERE u.eliminado = :eliminado")})
 public class Usuario implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @NotNull
+    //@Basic(optional = false)
+    //@NotNull
     @Column(name = "id_usuario")
     private Integer idUsuario;
     @Basic(optional = false)
@@ -52,8 +54,8 @@ public class Usuario implements Serializable {
     @Size(min = 1, max = 65535)
     @Column(name = "clave")
     private String clave;
-    @Basic(optional = false)
-    @NotNull
+    //@Basic(optional = false)
+    //@NotNull
     @Column(name = "eliminado")
     private boolean eliminado;
     @JoinColumn(name = "id_rol", referencedColumnName = "id_rol")
@@ -93,9 +95,20 @@ public class Usuario implements Serializable {
     public String getClave() {
         return clave;
     }
+    
+    public String encryptClave(String clave) throws Exception {
+        MessageDigest m = MessageDigest.getInstance("MD5");
+        m.update(clave.getBytes("UTF8"));
+        byte s[] = m.digest();
+        String result = "";
+        for (int i = 0; i < s.length; i++) {
+            result += Integer.toHexString((0x000000ff & s[i]) | 0xffffff00).substring(6);
+        }
+        return result;
+    }
 
-    public void setClave(String clave) {
-        this.clave = clave;
+    public void setClave(String clave) throws Exception {
+        this.clave = encryptClave(clave);
     }
 
     public boolean getEliminado() {
@@ -136,7 +149,8 @@ public class Usuario implements Serializable {
 
     @Override
     public String toString() {
-        return "jpa.entities.Usuario[ idUsuario=" + idUsuario + " ]";
+        //return "jpa.entities.Usuario[ idUsuario=" + idUsuario + " ]";
+        return nomUsuario;
     }
     
 }
