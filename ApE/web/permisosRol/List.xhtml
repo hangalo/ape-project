@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListPermisosRolTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListPermisosRolEmpty}" rendered="#{permisosRolController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{permisosRolController.items.rowCount > 0}">
+                    <h:outputText value="#{permisosRolController.pagination.pageFirstItem + 1}..#{permisosRolController.pagination.pageLastItem + 1}/#{permisosRolController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{permisosRolController.previous}" value="#{bundle.Previous} #{permisosRolController.pagination.pageSize}" rendered="#{permisosRolController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{permisosRolController.next}" value="#{bundle.Next} #{permisosRolController.pagination.pageSize}" rendered="#{permisosRolController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{permisosRolController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListPermisosRolTitle_perC}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.perC}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListPermisosRolTitle_perR}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.perR}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListPermisosRolTitle_perU}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.perU}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListPermisosRolTitle_perD}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.perD}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListPermisosRolTitle_modulo}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.modulo}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListPermisosRolTitle_rol}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.rol}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{permisosRolController.prepareView}" value="#{bundle.ListPermisosRolViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{permisosRolController.prepareEdit}" value="#{bundle.ListPermisosRolEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{permisosRolController.destroy}" value="#{bundle.ListPermisosRolDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{permisosRolController.prepareCreate}" value="#{bundle.ListPermisosRolCreateLink}"/>
+                <br />
+                <br />
+                <h:commandLink value="#{bundle.ListPermisosRolIndexLink}" action="/index" immediate="true" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

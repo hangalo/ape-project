@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateEstadoPedidoTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <!--
+                <h:outputLabel value="#{bundle.CreateEstadoPedidoLabel_idEstadoPedido}" for="idEstadoPedido" />
+                    <h:inputText id="idEstadoPedido" value="#{estadoPedidoController.selected.idEstadoPedido}" title="#{bundle.CreateEstadoPedidoTitle_idEstadoPedido}" required="true" requiredMessage="#{bundle.CreateEstadoPedidoRequiredMessage_idEstadoPedido}"/>
+                -->
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateEstadoPedidoLabel_descripcion}" for="descripcion" />
+                    <h:inputText id="descripcion" value="#{estadoPedidoController.selected.descripcion}" title="#{bundle.CreateEstadoPedidoTitle_descripcion}" required="true" requiredMessage="#{bundle.CreateEstadoPedidoRequiredMessage_descripcion}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{estadoPedidoController.create}" value="#{bundle.CreateEstadoPedidoSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{estadoPedidoController.prepareList}" value="#{bundle.CreateEstadoPedidoShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:commandLink value="#{bundle.CreateEstadoPedidoIndexLink}" action="/index" immediate="true" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

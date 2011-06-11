@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditPermisosRolTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditPermisosRolLabel_perC}" for="perC" />
+                    <h:inputText id="perC" value="#{permisosRolController.selected.perC}" title="#{bundle.EditPermisosRolTitle_perC}" required="true" requiredMessage="#{bundle.EditPermisosRolRequiredMessage_perC}"/>
+                    <h:outputLabel value="#{bundle.EditPermisosRolLabel_perR}" for="perR" />
+                    <h:inputText id="perR" value="#{permisosRolController.selected.perR}" title="#{bundle.EditPermisosRolTitle_perR}" required="true" requiredMessage="#{bundle.EditPermisosRolRequiredMessage_perR}"/>
+                    <h:outputLabel value="#{bundle.EditPermisosRolLabel_perU}" for="perU" />
+                    <h:inputText id="perU" value="#{permisosRolController.selected.perU}" title="#{bundle.EditPermisosRolTitle_perU}" required="true" requiredMessage="#{bundle.EditPermisosRolRequiredMessage_perU}"/>
+                    <h:outputLabel value="#{bundle.EditPermisosRolLabel_perD}" for="perD" />
+                    <h:inputText id="perD" value="#{permisosRolController.selected.perD}" title="#{bundle.EditPermisosRolTitle_perD}" required="true" requiredMessage="#{bundle.EditPermisosRolRequiredMessage_perD}"/>
+                    <h:outputLabel value="#{bundle.EditPermisosRolLabel_modulo}" for="modulo" />
+                    <h:selectOneMenu id="modulo" value="#{permisosRolController.selected.modulo}" title="#{bundle.EditPermisosRolTitle_modulo}" required="true" requiredMessage="#{bundle.EditPermisosRolRequiredMessage_modulo}">
+                        <f:selectItems value="#{moduloController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.EditPermisosRolLabel_rol}" for="rol" />
+                    <h:selectOneMenu id="rol" value="#{permisosRolController.selected.rol}" title="#{bundle.EditPermisosRolTitle_rol}" required="true" requiredMessage="#{bundle.EditPermisosRolRequiredMessage_rol}">
+                        <f:selectItems value="#{rolController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <h:commandLink action="#{permisosRolController.update}" value="#{bundle.EditPermisosRolSaveLink}"/>
+                <br />
+                <br />
+                <h:commandLink action="View" value="#{bundle.EditPermisosRolViewLink}" immediate="true"/>
+                <br />
+                <h:commandLink action="#{permisosRolController.prepareList}" value="#{bundle.EditPermisosRolShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:commandLink value="#{bundle.EditPermisosRolIndexLink}" action="/index" immediate="true" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

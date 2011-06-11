@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewPedidoProductoTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewPedidoProductoLabel_idPedido}"/>
+                    <h:outputText value="#{pedidoProductoController.selected.idPedido}" title="#{bundle.ViewPedidoProductoTitle_idPedido}"/>
+                    <h:outputText value="#{bundle.ViewPedidoProductoLabel_cantidad}"/>
+                    <h:outputText value="#{pedidoProductoController.selected.cantidad}" title="#{bundle.ViewPedidoProductoTitle_cantidad}"/>
+                    <h:outputText value="#{bundle.ViewPedidoProductoLabel_valorUnitario}"/>
+                    <h:outputText value="#{pedidoProductoController.selected.valorUnitario}" title="#{bundle.ViewPedidoProductoTitle_valorUnitario}"/>
+                    <h:outputText value="#{bundle.ViewPedidoProductoLabel_idProducto}"/>
+                    <h:outputText value="#{pedidoProductoController.selected.idProducto}" title="#{bundle.ViewPedidoProductoTitle_idProducto}"/>
+                    <h:outputText value="#{bundle.ViewPedidoProductoLabel_pedido}"/>
+                    <h:outputText value="#{pedidoProductoController.selected.pedido}" title="#{bundle.ViewPedidoProductoTitle_pedido}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{pedidoProductoController.destroyAndView}" value="#{bundle.ViewPedidoProductoDestroyLink}"/>
+                <br />
+                <br />
+                <h:commandLink action="Edit" value="#{bundle.ViewPedidoProductoEditLink}"/>
+                <br />
+                <h:commandLink action="#{pedidoProductoController.prepareCreate}" value="#{bundle.ViewPedidoProductoCreateLink}" />
+                <br />
+                <h:commandLink action="#{pedidoProductoController.prepareList}" value="#{bundle.ViewPedidoProductoShowAllLink}"/>
+                <br />
+                <br />
+                <h:commandLink value="#{bundle.ViewPedidoProductoIndexLink}" action="/index" immediate="true" />
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

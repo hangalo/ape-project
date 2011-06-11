@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewPermisosRolTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewPermisosRolLabel_perC}"/>
+                    <h:outputText value="#{permisosRolController.selected.perC}" title="#{bundle.ViewPermisosRolTitle_perC}"/>
+                    <h:outputText value="#{bundle.ViewPermisosRolLabel_perR}"/>
+                    <h:outputText value="#{permisosRolController.selected.perR}" title="#{bundle.ViewPermisosRolTitle_perR}"/>
+                    <h:outputText value="#{bundle.ViewPermisosRolLabel_perU}"/>
+                    <h:outputText value="#{permisosRolController.selected.perU}" title="#{bundle.ViewPermisosRolTitle_perU}"/>
+                    <h:outputText value="#{bundle.ViewPermisosRolLabel_perD}"/>
+                    <h:outputText value="#{permisosRolController.selected.perD}" title="#{bundle.ViewPermisosRolTitle_perD}"/>
+                    <h:outputText value="#{bundle.ViewPermisosRolLabel_modulo}"/>
+                    <h:outputText value="#{permisosRolController.selected.modulo}" title="#{bundle.ViewPermisosRolTitle_modulo}"/>
+                    <h:outputText value="#{bundle.ViewPermisosRolLabel_rol}"/>
+                    <h:outputText value="#{permisosRolController.selected.rol}" title="#{bundle.ViewPermisosRolTitle_rol}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{permisosRolController.destroyAndView}" value="#{bundle.ViewPermisosRolDestroyLink}"/>
+                <br />
+                <br />
+                <h:commandLink action="Edit" value="#{bundle.ViewPermisosRolEditLink}"/>
+                <br />
+                <h:commandLink action="#{permisosRolController.prepareCreate}" value="#{bundle.ViewPermisosRolCreateLink}" />
+                <br />
+                <h:commandLink action="#{permisosRolController.prepareList}" value="#{bundle.ViewPermisosRolShowAllLink}"/>
+                <br />
+                <br />
+                <h:commandLink value="#{bundle.ViewPermisosRolIndexLink}" action="/index" immediate="true" />
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

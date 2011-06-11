@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreatePrecioProductoTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreatePrecioProductoLabel_idPrecioProducto}" for="idPrecioProducto" />
+                    <h:inputText id="idPrecioProducto" value="#{precioProductoController.selected.idPrecioProducto}" title="#{bundle.CreatePrecioProductoTitle_idPrecioProducto}" required="true" requiredMessage="#{bundle.CreatePrecioProductoRequiredMessage_idPrecioProducto}"/>
+                    <h:outputLabel value="#{bundle.CreatePrecioProductoLabel_valor}" for="valor" />
+                    <h:inputText id="valor" value="#{precioProductoController.selected.valor}" title="#{bundle.CreatePrecioProductoTitle_valor}" required="true" requiredMessage="#{bundle.CreatePrecioProductoRequiredMessage_valor}"/>
+                    <h:outputLabel value="#{bundle.CreatePrecioProductoLabel_fechaCreacion}" for="fechaCreacion" />
+                    <h:inputText id="fechaCreacion" value="#{precioProductoController.selected.fechaCreacion}" title="#{bundle.CreatePrecioProductoTitle_fechaCreacion}" required="true" requiredMessage="#{bundle.CreatePrecioProductoRequiredMessage_fechaCreacion}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.CreatePrecioProductoLabel_idProducto}" for="idProducto" />
+                    <h:selectOneMenu id="idProducto" value="#{precioProductoController.selected.idProducto}" title="#{bundle.CreatePrecioProductoTitle_idProducto}" required="true" requiredMessage="#{bundle.CreatePrecioProductoRequiredMessage_idProducto}">
+                        <f:selectItems value="#{productoController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{precioProductoController.create}" value="#{bundle.CreatePrecioProductoSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{precioProductoController.prepareList}" value="#{bundle.CreatePrecioProductoShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:commandLink value="#{bundle.CreatePrecioProductoIndexLink}" action="/index" immediate="true" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
