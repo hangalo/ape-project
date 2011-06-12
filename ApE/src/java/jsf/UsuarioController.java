@@ -66,6 +66,7 @@ public class UsuarioController implements Serializable {
         if (getFacade().UsuarioLogin(current)) {
             return "success";
         } else {
+            JsfUtil.addErrorMessage(ResourceBundle.getBundle("/resources/Bundle").getString("UserLoginFailure"));
             return "failure";
         }
     }
