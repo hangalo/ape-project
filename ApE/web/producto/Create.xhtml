@@ -13,16 +13,18 @@
             <h:panelGroup id="messagePanel" layout="block">
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
             </h:panelGroup>
+            <!--
+            <h:outputLabel value="#{bundle.CreateProductoLabel_idProducto}" for="idProducto" />
+                    <h:inputText id="idProducto" value="#{productoController.selected.idProducto}" title="#{bundle.CreateProductoTitle_idProducto}" required="true" requiredMessage="#{bundle.CreateProductoRequiredMessage_idProducto}"/>
+            <h:outputLabel value="#{bundle.CreateProductoLabel_eliminado}" for="eliminado" />
+                    <h:inputText id="eliminado" value="#{productoController.selected.eliminado}" title="#{bundle.CreateProductoTitle_eliminado}" required="true" requiredMessage="#{bundle.CreateProductoRequiredMessage_eliminado}"/>
+            -->
             <h:form>
                 <h:panelGrid columns="2">
-                    <h:outputLabel value="#{bundle.CreateProductoLabel_idProducto}" for="idProducto" />
-                    <h:inputText id="idProducto" value="#{productoController.selected.idProducto}" title="#{bundle.CreateProductoTitle_idProducto}" required="true" requiredMessage="#{bundle.CreateProductoRequiredMessage_idProducto}"/>
                     <h:outputLabel value="#{bundle.CreateProductoLabel_nombre}" for="nombre" />
                     <h:inputText id="nombre" value="#{productoController.selected.nombre}" title="#{bundle.CreateProductoTitle_nombre}" required="true" requiredMessage="#{bundle.CreateProductoRequiredMessage_nombre}"/>
                     <h:outputLabel value="#{bundle.CreateProductoLabel_descripcion}" for="descripcion" />
                     <h:inputText id="descripcion" value="#{productoController.selected.descripcion}" title="#{bundle.CreateProductoTitle_descripcion}" />
-                    <h:outputLabel value="#{bundle.CreateProductoLabel_eliminado}" for="eliminado" />
-                    <h:inputText id="eliminado" value="#{productoController.selected.eliminado}" title="#{bundle.CreateProductoTitle_eliminado}" required="true" requiredMessage="#{bundle.CreateProductoRequiredMessage_eliminado}"/>
                 </h:panelGrid>
                 <br />
                 <h:commandLink action="#{productoController.create}" value="#{bundle.CreateProductoSaveLink}" />

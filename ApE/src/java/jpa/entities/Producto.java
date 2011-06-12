@@ -39,8 +39,8 @@ public class Producto implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @NotNull
+    //@Basic(optional = false)
+    //@NotNull
     @Column(name = "id_producto")
     private Integer idProducto;
     @Basic(optional = false)
@@ -51,8 +51,8 @@ public class Producto implements Serializable {
     @Size(max = 45)
     @Column(name = "descripcion")
     private String descripcion;
-    @Basic(optional = false)
-    @NotNull
+    //@Basic(optional = false)
+    //@NotNull
     @Column(name = "eliminado")
     private boolean eliminado;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idProducto")

@@ -35,6 +35,9 @@
                     <h:selectOneMenu id="idEstadoPedido" value="#{pedidoController.selected.idEstadoPedido}" title="#{bundle.CreatePedidoTitle_idEstadoPedido}" required="true" requiredMessage="#{bundle.CreatePedidoRequiredMessage_idEstadoPedido}">
                         <f:selectItems value="#{estadoPedidoController.itemsAvailableSelectOne}"/>
                     </h:selectOneMenu>
+                    <h:selectOneMenu id="pedidoProducto" value="#{pedidoController.selected.pedidoProducto}" title="#{bundle.CreatePedidoTitle_pedidoProducto}" >
+                        <f:selectItems value="#{pedidoProductoController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
                 -->
                 <h:panelGrid columns="2">
                     <h:outputLabel value="#{bundle.CreatePedidoLabel_valorTotal}" for="valorTotal" />
@@ -52,71 +55,60 @@
                     <h:outputLabel value="#{bundle.CreatePedidoLabel_destCodPostal}" for="destCodPostal" />
                     <h:inputText id="destCodPostal" value="#{pedidoController.selected.destCodPostal}" title="#{bundle.CreatePedidoTitle_destCodPostal}" />
                     <h:outputLabel value="#{bundle.CreatePedidoLabel_pedidoProducto}" for="pedidoProducto" />
-                    <h:selectOneMenu id="pedidoProducto" value="#{pedidoController.selected.pedidoProducto}" title="#{bundle.CreatePedidoTitle_pedidoProducto}" >
-                        <f:selectItems value="#{pedidoProductoController.itemsAvailableSelectOne}"/>
-                    </h:selectOneMenu>
                 </h:panelGrid>
+                <!--
                 <h:form>
                 <h:panelGrid columns="2">
                     <h:outputLabel value="Buscar Producto" />
                     <h:inputText id="busq_producto" value="" title="Buscar Producto" onkeyup="" />
                 </h:panelGrid>    
                 </h:form>
-                
-                <div id="tabla_busqueda">
-                    <h:form styleClass="jsfcrud_list_form">
-                        <h:panelGroup id="messagePanel" layout="block">
-                            <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
-                        </h:panelGroup>
-                        <h:outputText escape="false" value="#{bundle.ListProductoEmpty}" rendered="#{productoController.items.rowCount == 0}"/>
-                        <h:panelGroup rendered="#{productoController.items.rowCount > 0}">
-                            <h:outputText value="#{productoController.pagination.pageFirstItem + 1}..#{productoController.pagination.pageLastItem + 1}/#{productoController.pagination.itemsCount}"/>&nbsp;
-                            <h:commandLink action="#{productoController.previous}" value="#{bundle.Previous} #{productoController.pagination.pageSize}" rendered="#{productoController.pagination.hasPreviousPage}"/>&nbsp;
-                            <h:commandLink action="#{productoController.next}" value="#{bundle.Next} #{productoController.pagination.pageSize}" rendered="#{productoController.pagination.hasNextPage}"/>&nbsp;
-                            <h:dataTable value="#{productoController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
-                                <h:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="#{bundle.ListProductoTitle_idProducto}"/>
-                                    </f:facet>
-                                    <h:outputText value="#{item.idProducto}"/>
-                                </h:column>
-                                <h:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="#{bundle.ListProductoTitle_nombre}"/>
-                                    </f:facet>
-                                    <h:outputText value="#{item.nombre}"/>
-                                </h:column>
-                                <h:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="#{bundle.ListProductoTitle_descripcion}"/>
-                                    </f:facet>
-                                    <h:outputText value="#{item.descripcion}"/>
-                                </h:column>
-                                <h:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="#{bundle.ListProductoTitle_eliminado}"/>
-                                    </f:facet>
-                                    <h:outputText value="#{item.eliminado}"/>
-                                </h:column>
-                                <h:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="&nbsp;"/>
-                                    </f:facet>
-                                    <h:commandLink action="#{productoController.prepareView}" value="#{bundle.ListProductoViewLink}"/>
-                                    <h:outputText value=" "/>
-                                    <h:commandLink action="#{productoController.prepareEdit}" value="#{bundle.ListProductoEditLink}"/>
-                                    <h:outputText value=" "/>
-                                    <h:commandLink action="#{productoController.destroy}" value="#{bundle.ListProductoDestroyLink}"/>
-                                </h:column>
-                            </h:dataTable>
-                        </h:panelGroup>
-                        <br />
-                        <h:commandLink action="#{productoController.prepareCreate}" value="#{bundle.ListProductoCreateLink}"/>
-                        <br />
-                        <br />
-                        <h:commandLink value="#{bundle.ListProductoIndexLink}" action="/index" immediate="true" />
-                    </h:form>
-                </div>
+                -->
+                <h:outputFormat styleClass="jsfcrud_list_form">
+                <h:outputText escape="false" value="#{bundle.ListProductoEmpty}" rendered="#{productoController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{productoController.items.rowCount > 0}">
+                    <h:outputText value="#{productoController.pagination.pageFirstItem + 1}..#{productoController.pagination.pageLastItem + 1}/#{productoController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{productoController.previous}" value="#{bundle.Previous} #{productoController.pagination.pageSize}" rendered="#{productoController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{productoController.next}" value="#{bundle.Next} #{productoController.pagination.pageSize}" rendered="#{productoController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{productoController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListProductoTitle_idProducto}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idProducto}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListPrecioProductoTitle_valor}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nombre}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListStockTitle_cantidad}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.descripcion}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <!--<h:outputText value="#{bundle.ListProductoTitle_eliminado}"/>-->
+                                <h:outputText value="Total"/>
+                            </f:facet>
+                            <h:outputText value="#{item.eliminado}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{productoController.prepareView}" value="#{bundle.ListProductoViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{productoController.prepareEdit}" value="#{bundle.ListProductoEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{productoController.destroy}" value="#{bundle.ListProductoDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                </h:outputFormat>
                 
                 <br />
                 <h:commandLink action="#{pedidoController.create}" value="#{bundle.CreatePedidoSaveLink}" />
