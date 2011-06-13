@@ -13,10 +13,12 @@
             <h:panelGroup id="messagePanel" layout="block">
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
             </h:panelGroup>
+            <!--
+            <h:outputLabel value="#{bundle.CreateEstadoClienteLabel_idEstadoCliente}" for="idEstadoCliente" />
+                    <h:inputText id="idEstadoCliente" value="#{estadoClienteController.selected.idEstadoCliente}" title="#{bundle.CreateEstadoClienteTitle_idEstadoCliente}" required="true" requiredMessage="#{bundle.CreateEstadoClienteRequiredMessage_idEstadoCliente}"/>
+            -->
             <h:form>
                 <h:panelGrid columns="2">
-                    <h:outputLabel value="#{bundle.CreateEstadoClienteLabel_idEstadoCliente}" for="idEstadoCliente" />
-                    <h:inputText id="idEstadoCliente" value="#{estadoClienteController.selected.idEstadoCliente}" title="#{bundle.CreateEstadoClienteTitle_idEstadoCliente}" required="true" requiredMessage="#{bundle.CreateEstadoClienteRequiredMessage_idEstadoCliente}"/>
                     <h:outputLabel value="#{bundle.CreateEstadoClienteLabel_descripcion}" for="descripcion" />
                     <h:inputText id="descripcion" value="#{estadoClienteController.selected.descripcion}" title="#{bundle.CreateEstadoClienteTitle_descripcion}" required="true" requiredMessage="#{bundle.CreateEstadoClienteRequiredMessage_descripcion}"/>
                 </h:panelGrid>

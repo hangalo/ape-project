@@ -37,8 +37,8 @@ public class EstadoCliente implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @NotNull
+    //@Basic(optional = false)
+    //@NotNull
     @Column(name = "id_estado_cliente")
     private Short idEstadoCliente;
     @Basic(optional = false)
@@ -108,7 +108,8 @@ public class EstadoCliente implements Serializable {
 
     @Override
     public String toString() {
-        return "jpa.entities.EstadoCliente[ idEstadoCliente=" + idEstadoCliente + " ]";
+        //return "jpa.entities.EstadoCliente[ idEstadoCliente=" + idEstadoCliente + " ]";
+        return descripcion;
     }
     
 }
