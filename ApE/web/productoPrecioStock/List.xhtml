@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListProductoPrecioStockTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListProductoPrecioStockEmpty}" rendered="#{productoPrecioStockController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{productoPrecioStockController.items.rowCount > 0}">
+                    <h:outputText value="#{productoPrecioStockController.pagination.pageFirstItem + 1}..#{productoPrecioStockController.pagination.pageLastItem + 1}/#{productoPrecioStockController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{productoPrecioStockController.previous}" value="#{bundle.Previous} #{productoPrecioStockController.pagination.pageSize}" rendered="#{productoPrecioStockController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{productoPrecioStockController.next}" value="#{bundle.Next} #{productoPrecioStockController.pagination.pageSize}" rendered="#{productoPrecioStockController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{productoPrecioStockController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListProductoPrecioStockTitle_idProducto}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idProducto}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListProductoPrecioStockTitle_nombre}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nombre}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListProductoPrecioStockTitle_valor}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.valor}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListProductoPrecioStockTitle_cantidad}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.cantidad}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{productoPrecioStockController.prepareView}" value="#{bundle.ListProductoPrecioStockViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{productoPrecioStockController.prepareEdit}" value="#{bundle.ListProductoPrecioStockEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{productoPrecioStockController.destroy}" value="#{bundle.ListProductoPrecioStockDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{productoPrecioStockController.prepareCreate}" value="#{bundle.ListProductoPrecioStockCreateLink}"/>
+                <br />
+                <br />
+                <h:commandLink value="#{bundle.ListProductoPrecioStockIndexLink}" action="/index" immediate="true" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

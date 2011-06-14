@@ -28,6 +28,8 @@ public class PedidoController implements Serializable {
     private jpa.session.PedidoFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
+    private PedidoProductoController pedidoProductoController;
+    private DataModel itemsProductos;
 
     public PedidoController() {
     }
@@ -74,6 +76,7 @@ public class PedidoController implements Serializable {
     }
 
     public String prepareCreate() {
+        recreateModel();
         current = new Pedido();
         selectedItemIndex = -1;
         return "Create";
@@ -181,6 +184,13 @@ public class PedidoController implements Serializable {
 
     public SelectItem[] getItemsAvailableSelectOne() {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
+    }
+    
+    private DataModel getItemsProductos(){
+        if (itemsProductos == null) {
+            itemsProductos = pedidoProductoController.getPagination().createPageDataModel();
+        }
+        return itemsProductos;
     }
 
     @FacesConverter(forClass = Pedido.class)

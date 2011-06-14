@@ -5,6 +5,7 @@
 package jpa.entities;
 
 import java.io.Serializable;
+import java.security.MessageDigest;
 import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
@@ -15,6 +16,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -23,6 +25,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -40,6 +43,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Cliente.findByNombres", query = "SELECT c FROM Cliente c WHERE c.nombres = :nombres"),
     @NamedQuery(name = "Cliente.findByApellidos", query = "SELECT c FROM Cliente c WHERE c.apellidos = :apellidos"),
     @NamedQuery(name = "Cliente.findByEmail", query = "SELECT c FROM Cliente c WHERE c.email = :email"),
+    @NamedQuery(name = "Cliente.findByLogin", query = "SELECT c FROM Cliente c WHERE c.email = :email AND c.clave = :clave"),
     @NamedQuery(name = "Cliente.findByFechaCreacion", query = "SELECT c FROM Cliente c WHERE c.fechaCreacion = :fechaCreacion")})
 public class Cliente implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -59,19 +63,25 @@ public class Cliente implements Serializable {
     @Size(min = 1, max = 45)
     @Column(name = "apellidos")
     private String apellidos;
-    // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
+    @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 45)
     @Column(name = "email")
     private String email;
+    @Basic(optional = false)
+    @NotNull
+    @Lob
+    @Size(min = 1, max = 65535)
+    @Column(name = "clave")
+    private String clave;
     //@Basic(optional = false)
     //@NotNull
     @Column(name = "fecha_creacion")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaCreacion;
     @JoinColumn(name = "id_estado_cliente", referencedColumnName = "id_estado_cliente")
-    @ManyToOne(optional = false)
+    //@ManyToOne(optional = false)
     private EstadoCliente idEstadoCliente;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCliente")
     private Collection<Pedido> pedidoCollection;
@@ -170,7 +180,32 @@ public class Cliente implements Serializable {
 
     @Override
     public String toString() {
-        return "jpa.entities.Cliente[ idCliente=" + idCliente + " ]";
+        return nombres+" "+apellidos;
+    }
+
+    /**
+     * @return the clave
+     */
+    public String getClave() {
+        return clave;
+    }
+
+    /**
+     * @param clave the clave to set
+     */
+    public String encryptClave(String clave) throws Exception {
+        MessageDigest m = MessageDigest.getInstance("MD5");
+        m.update(clave.getBytes("UTF8"));
+        byte s[] = m.digest();
+        String result = "";
+        for (int i = 0; i < s.length; i++) {
+            result += Integer.toHexString((0x000000ff & s[i]) | 0xffffff00).substring(6);
+        }
+        return result;
+    }
+
+    public void setClave(String clave) throws Exception {
+        this.clave = encryptClave(clave);
     }
     
 }

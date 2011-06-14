@@ -8,14 +8,14 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import jpa.entities.Cliente;
+import jpa.entities.ProductoPrecioStock;
 
 /**
  *
- * @author verito
+ * @author carlos
  */
 @Stateless
-public class ClienteFacade extends AbstractFacade<Cliente> {
+public class ProductoPrecioStockFacade extends AbstractFacade<ProductoPrecioStock> {
     @PersistenceContext(unitName = "ApEPU")
     private EntityManager em;
 
@@ -23,18 +23,14 @@ public class ClienteFacade extends AbstractFacade<Cliente> {
         return em;
     }
 
-    public ClienteFacade() {
-        super(Cliente.class);
+    public ProductoPrecioStockFacade() {
+        super(ProductoPrecioStock.class);
     }
-
-    public boolean ClienteLogin(Cliente cliente) {
-        List lista = em.createNamedQuery("Cliente.findByLogin")
-                .setParameter("email", cliente.getEmail())
-                .setParameter("clave", cliente.getClave())
+    
+    public List<ProductoPrecioStock> buscar(String pattern) {
+        return em.createNamedQuery("Producto.findByNombreLike")
+                .setParameter("nombre", pattern)
                 .getResultList();
-        if(lista.size() > 0)
-            return true;
-        return false;
     }
     
 }

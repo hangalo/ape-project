@@ -2,10 +2,10 @@
 <Scene Scope="Project" version="2">
     <Scope Scope="Faces Configuration Only"/>
     <Scope Scope="Project">
-        <Node id="cliente/List.xhtml" x="650" y="300" zoom="true"/>
         <Node id="stock/View.xhtml" x="150" y="900" zoom="true"/>
-        <Node id="cliente/Create.xhtml" x="400" y="600" zoom="true"/>
+        <Node id="cliente/List.xhtml" x="650" y="300" zoom="true"/>
         <Node id="precioProducto/List.xhtml" x="1900" y="450" zoom="true"/>
+        <Node id="cliente/Create.xhtml" x="400" y="600" zoom="true"/>
         <Node id="pedido/listaProductos.xhtml" x="900" y="1050" zoom="true"/>
         <Node id="precioProducto/Edit.xhtml" x="1400" y="750" zoom="true"/>
         <Node id="estadoPedido/View.xhtml" x="400" y="1200" zoom="true"/>
@@ -18,28 +18,32 @@
         <Node id="stock/List.xhtml" x="1900" y="300" zoom="true"/>
         <Node id="estadoPedido/List.xhtml" x="150" y="1350" zoom="true"/>
         <Node id="stock/Create.xhtml" x="2150" y="150" zoom="true"/>
+        <Node id="productoPrecioStock/Create.xhtml" x="2650" y="150" zoom="true"/>
         <Node id="modulo/Create.xhtml" x="150" y="750" zoom="true"/>
-        <Node id="producto/Create.xhtml" x="1900" y="150" zoom="true"/>
         <Node id="pedido/Edit.xhtml" x="650" y="600" zoom="true"/>
+        <Node id="producto/Create.xhtml" x="1900" y="150" zoom="true"/>
         <Node id="modulo/Edit.xhtml" x="1150" y="600" zoom="true"/>
         <Node id="permisosRol/List.xhtml" x="1650" y="150" zoom="true"/>
         <Node id="producto/Edit.xhtml" x="1650" y="600" zoom="true"/>
-        <Node id="producto/List.xhtml" x="650" y="150" zoom="true"/>
         <Node id="usuario/Edit.xhtml" x="1150" y="900" zoom="true"/>
+        <Node id="producto/List.xhtml" x="650" y="150" zoom="true"/>
         <Node id="estadoPedido/Edit.xhtml" x="150" y="600" zoom="true"/>
         <Node id="estadoCliente/Edit.xhtml" x="1400" y="150" zoom="true"/>
         <Node id="permisosRol/View.xhtml" x="400" y="750" zoom="true"/>
         <Node id="pedido/List.xhtml" x="900" y="600" zoom="true"/>
+        <Node id="Login_clientes.xhtml" x="416" y="524" zoom="true"/>
         <Node id="precioProducto/Create.xhtml" x="1150" y="750" zoom="true"/>
         <Node id="usuario/View.xhtml" x="1150" y="450" zoom="true"/>
         <Node id="pedidoProducto/Edit.xhtml" x="1400" y="450" zoom="true"/>
         <Node id="template.xhtml" x="650" y="900" zoom="true"/>
         <Node id="pedidoProducto/View.xhtml" x="400" y="450" zoom="true"/>
         <Node id="estadoCliente/View.xhtml" x="900" y="900" zoom="true"/>
-        <Node id="rol/Edit.xhtml" x="150" y="450" zoom="true"/>
+        <Node id="productoPrecioStock/View.xhtml" x="150" y="1500" zoom="true"/>
         <Node id="modulo/View.xhtml" x="150" y="150" zoom="true"/>
+        <Node id="rol/Edit.xhtml" x="150" y="450" zoom="true"/>
         <Node id="usuario/List.xhtml" x="1650" y="450" zoom="true"/>
         <Node id="producto/View.xhtml" x="1150" y="150" zoom="true"/>
+        <Node id="acl.xhtml" x="650" y="1200" zoom="true"/>
         <Node id="modulo/List.xhtml" x="650" y="450" zoom="true"/>
         <Node id="pedido/View.xhtml" x="900" y="300" zoom="true"/>
         <Node id="cliente/Edit.xhtml" x="400" y="150" zoom="true"/>
@@ -49,11 +53,13 @@
         <Node id="precioProducto/View.xhtml" x="900" y="150" zoom="true"/>
         <Node id="index.xhtml" x="1650" y="300" zoom="false"/>
         <Node id="estadoCliente/Create.xhtml" x="650" y="1050" zoom="true"/>
+        <Node id="productoPrecioStock/List.xhtml" x="2400" y="300" zoom="true"/>
         <Node id="cliente/View.xhtml" x="1400" y="600" zoom="true"/>
         <Node id="pedidoProducto/List.xhtml" x="400" y="300" zoom="true"/>
         <Node id="pedidoProducto/Create.xhtml" x="150" y="300" zoom="true"/>
         <Node id="rol/View.xhtml" x="1400" y="300" zoom="true"/>
         <Node id="stock/Edit.xhtml" x="2400" y="150" zoom="true"/>
+        <Node id="productoPrecioStock/Edit.xhtml" x="400" y="1350" zoom="true"/>
     </Scope>
     <Scope Scope="All Faces Configurations"/>
 </Scene>

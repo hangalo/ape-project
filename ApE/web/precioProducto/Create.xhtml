@@ -14,15 +14,17 @@
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
             </h:panelGroup>
             <h:form>
-                <h:panelGrid columns="2">
-                    <h:outputLabel value="#{bundle.CreatePrecioProductoLabel_idPrecioProducto}" for="idPrecioProducto" />
+                <!--
+                <h:outputLabel value="#{bundle.CreatePrecioProductoLabel_idPrecioProducto}" for="idPrecioProducto" />
                     <h:inputText id="idPrecioProducto" value="#{precioProductoController.selected.idPrecioProducto}" title="#{bundle.CreatePrecioProductoTitle_idPrecioProducto}" required="true" requiredMessage="#{bundle.CreatePrecioProductoRequiredMessage_idPrecioProducto}"/>
-                    <h:outputLabel value="#{bundle.CreatePrecioProductoLabel_valor}" for="valor" />
-                    <h:inputText id="valor" value="#{precioProductoController.selected.valor}" title="#{bundle.CreatePrecioProductoTitle_valor}" required="true" requiredMessage="#{bundle.CreatePrecioProductoRequiredMessage_valor}"/>
-                    <h:outputLabel value="#{bundle.CreatePrecioProductoLabel_fechaCreacion}" for="fechaCreacion" />
+                <h:outputLabel value="#{bundle.CreatePrecioProductoLabel_fechaCreacion}" for="fechaCreacion" />
                     <h:inputText id="fechaCreacion" value="#{precioProductoController.selected.fechaCreacion}" title="#{bundle.CreatePrecioProductoTitle_fechaCreacion}" required="true" requiredMessage="#{bundle.CreatePrecioProductoRequiredMessage_fechaCreacion}">
                         <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
                     </h:inputText>
+                -->
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreatePrecioProductoLabel_valor}" for="valor" />
+                    <h:inputText id="valor" value="#{precioProductoController.selected.valor}" title="#{bundle.CreatePrecioProductoTitle_valor}" required="true" requiredMessage="#{bundle.CreatePrecioProductoRequiredMessage_valor}"/>
                     <h:outputLabel value="#{bundle.CreatePrecioProductoLabel_idProducto}" for="idProducto" />
                     <h:selectOneMenu id="idProducto" value="#{precioProductoController.selected.idProducto}" title="#{bundle.CreatePrecioProductoTitle_idProducto}" required="true" requiredMessage="#{bundle.CreatePrecioProductoRequiredMessage_idProducto}">
                         <f:selectItems value="#{productoController.itemsAvailableSelectOne}"/>

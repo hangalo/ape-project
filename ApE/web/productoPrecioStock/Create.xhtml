@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateProductoPrecioStockTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateProductoPrecioStockLabel_idProducto}" for="idProducto" />
+                    <h:inputText id="idProducto" value="#{productoPrecioStockController.selected.idProducto}" title="#{bundle.CreateProductoPrecioStockTitle_idProducto}" required="true" requiredMessage="#{bundle.CreateProductoPrecioStockRequiredMessage_idProducto}"/>
+                    <h:outputLabel value="#{bundle.CreateProductoPrecioStockLabel_nombre}" for="nombre" />
+                    <h:inputText id="nombre" value="#{productoPrecioStockController.selected.nombre}" title="#{bundle.CreateProductoPrecioStockTitle_nombre}" required="true" requiredMessage="#{bundle.CreateProductoPrecioStockRequiredMessage_nombre}"/>
+                    <h:outputLabel value="#{bundle.CreateProductoPrecioStockLabel_valor}" for="valor" />
+                    <h:inputText id="valor" value="#{productoPrecioStockController.selected.valor}" title="#{bundle.CreateProductoPrecioStockTitle_valor}" />
+                    <h:outputLabel value="#{bundle.CreateProductoPrecioStockLabel_cantidad}" for="cantidad" />
+                    <h:inputText id="cantidad" value="#{productoPrecioStockController.selected.cantidad}" title="#{bundle.CreateProductoPrecioStockTitle_cantidad}" />
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{productoPrecioStockController.create}" value="#{bundle.CreateProductoPrecioStockSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{productoPrecioStockController.prepareList}" value="#{bundle.CreateProductoPrecioStockShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:commandLink value="#{bundle.CreateProductoPrecioStockIndexLink}" action="/index" immediate="true" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

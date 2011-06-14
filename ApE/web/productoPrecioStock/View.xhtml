@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewProductoPrecioStockTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewProductoPrecioStockLabel_idProducto}"/>
+                    <h:outputText value="#{productoPrecioStockController.selected.idProducto}" title="#{bundle.ViewProductoPrecioStockTitle_idProducto}"/>
+                    <h:outputText value="#{bundle.ViewProductoPrecioStockLabel_nombre}"/>
+                    <h:outputText value="#{productoPrecioStockController.selected.nombre}" title="#{bundle.ViewProductoPrecioStockTitle_nombre}"/>
+                    <h:outputText value="#{bundle.ViewProductoPrecioStockLabel_valor}"/>
+                    <h:outputText value="#{productoPrecioStockController.selected.valor}" title="#{bundle.ViewProductoPrecioStockTitle_valor}"/>
+                    <h:outputText value="#{bundle.ViewProductoPrecioStockLabel_cantidad}"/>
+                    <h:outputText value="#{productoPrecioStockController.selected.cantidad}" title="#{bundle.ViewProductoPrecioStockTitle_cantidad}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{productoPrecioStockController.destroyAndView}" value="#{bundle.ViewProductoPrecioStockDestroyLink}"/>
+                <br />
+                <br />
+                <h:commandLink action="Edit" value="#{bundle.ViewProductoPrecioStockEditLink}"/>
+                <br />
+                <h:commandLink action="#{productoPrecioStockController.prepareCreate}" value="#{bundle.ViewProductoPrecioStockCreateLink}" />
+                <br />
+                <h:commandLink action="#{productoPrecioStockController.prepareList}" value="#{bundle.ViewProductoPrecioStockShowAllLink}"/>
+                <br />
+                <br />
+                <h:commandLink value="#{bundle.ViewProductoPrecioStockIndexLink}" action="/index" immediate="true" />
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

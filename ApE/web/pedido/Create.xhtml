@@ -10,10 +10,17 @@
             <h:outputText value="#{bundle.CreatePedidoTitle}"></h:outputText>
         </ui:define>
         <ui:define name="body">
+            <script type="text/javascript">
+                function showPopUp() {
+                    //formId=action.form.id;
+                    settings="height=500,width=500,status=yes,toolbar= no,menubar=no,location=no,scrollbars=yes";	
+                    winId=window.open('listaProductos.xhtml', 'Listado de Productos', settings);
+                }
+            </script>
             <h:panelGroup id="messagePanel" layout="block">
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
             </h:panelGroup>
-            <h:form>
+            <h:form id="frmPedido">
                 <!--
                 <h:outputLabel value="#{bundle.CreatePedidoLabel_idPedido}" for="idPedido" />
                     <h:inputText id="idPedido" value="#{pedidoController.selected.idPedido}" title="#{bundle.CreatePedidoTitle_idPedido}" required="true" requiredMessage="#{bundle.CreatePedidoRequiredMessage_idPedido}"/>
@@ -38,6 +45,7 @@
                     <h:selectOneMenu id="pedidoProducto" value="#{pedidoController.selected.pedidoProducto}" title="#{bundle.CreatePedidoTitle_pedidoProducto}" >
                         <f:selectItems value="#{pedidoProductoController.itemsAvailableSelectOne}"/>
                     </h:selectOneMenu>
+                <h:outputLabel value="#{bundle.CreatePedidoLabel_pedidoProducto}" for="pedidoProducto" />
                 -->
                 <h:panelGrid columns="2">
                     <h:outputLabel value="#{bundle.CreatePedidoLabel_valorTotal}" for="valorTotal" />
@@ -54,62 +62,50 @@
                     <h:inputText id="destCiudad" value="#{pedidoController.selected.destCiudad}" title="#{bundle.CreatePedidoTitle_destCiudad}" required="true" requiredMessage="#{bundle.CreatePedidoRequiredMessage_destCiudad}"/>
                     <h:outputLabel value="#{bundle.CreatePedidoLabel_destCodPostal}" for="destCodPostal" />
                     <h:inputText id="destCodPostal" value="#{pedidoController.selected.destCodPostal}" title="#{bundle.CreatePedidoTitle_destCodPostal}" />
-                    <h:outputLabel value="#{bundle.CreatePedidoLabel_pedidoProducto}" for="pedidoProducto" />
                 </h:panelGrid>
-                <!--
-                <h:form>
-                <h:panelGrid columns="2">
-                    <h:outputLabel value="Buscar Producto" />
-                    <h:inputText id="busq_producto" value="" title="Buscar Producto" onkeyup="" />
-                </h:panelGrid>    
-                </h:form>
-                -->
+                
                 <h:outputFormat styleClass="jsfcrud_list_form">
+                    <!--<h:commandLink value="Agregar Productos" />-->
+                    <a href="#" onclick="showPopUp()">Agregar Producto</a>
+                    <br/>
                 <h:outputText escape="false" value="#{bundle.ListProductoEmpty}" rendered="#{productoController.items.rowCount == 0}"/>
+                <br/>
                 <h:panelGroup rendered="#{productoController.items.rowCount > 0}">
-                    <h:outputText value="#{productoController.pagination.pageFirstItem + 1}..#{productoController.pagination.pageLastItem + 1}/#{productoController.pagination.itemsCount}"/>&nbsp;
-                    <h:commandLink action="#{productoController.previous}" value="#{bundle.Previous} #{productoController.pagination.pageSize}" rendered="#{productoController.pagination.hasPreviousPage}"/>&nbsp;
-                    <h:commandLink action="#{productoController.next}" value="#{bundle.Next} #{productoController.pagination.pageSize}" rendered="#{productoController.pagination.hasNextPage}"/>&nbsp;
                     <h:dataTable value="#{productoController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
                         <h:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListProductoTitle_idProducto}"/>
+                                <h:outputText value="Producto" />
                             </f:facet>
-                            <h:outputText value="#{item.idProducto}"/>
+                            <h:outputText value="#{item.nombre} - #{item.descripcion}" />
                         </h:column>
                         <h:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListPrecioProductoTitle_valor}"/>
                             </f:facet>
-                            <h:outputText value="#{item.nombre}"/>
+                            <h:outputText value=""/>
                         </h:column>
                         <h:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListStockTitle_cantidad}"/>
                             </f:facet>
-                            <h:outputText value="#{item.descripcion}"/>
+                            <h:outputText value=""/>
                         </h:column>
                         <h:column>
                             <f:facet name="header">
                                 <!--<h:outputText value="#{bundle.ListProductoTitle_eliminado}"/>-->
                                 <h:outputText value="Total"/>
                             </f:facet>
-                            <h:outputText value="#{item.eliminado}"/>
+                            <h:outputText value=""/>
                         </h:column>
                         <h:column>
                             <f:facet name="header">
                                 <h:outputText value="&nbsp;"/>
                             </f:facet>
-                            <h:commandLink action="#{productoController.prepareView}" value="#{bundle.ListProductoViewLink}"/>
-                            <h:outputText value=" "/>
-                            <h:commandLink action="#{productoController.prepareEdit}" value="#{bundle.ListProductoEditLink}"/>
-                            <h:outputText value=" "/>
-                            <h:commandLink action="#{productoController.destroy}" value="#{bundle.ListProductoDestroyLink}"/>
+                            <a href="#" onclick="eliminarDeLista(#{item.idProducto})">#{bundle.ListProductoDestroyLink}</a>
                         </h:column>
                     </h:dataTable>
                 </h:panelGroup>
                 </h:outputFormat>
-                
                 <br />
                 <h:commandLink action="#{pedidoController.create}" value="#{bundle.CreatePedidoSaveLink}" />
                 <br />
@@ -121,5 +117,4 @@
             </h:form>
         </ui:define>
     </ui:composition>
-
 </html>

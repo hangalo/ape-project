@@ -23,22 +23,17 @@
             -->
             <h:form>
                 <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateClienteLabel_email}" for="email" />
+                    <h:inputText id="email" value="#{clienteController.selected.email}" title="#{bundle.CreateClienteTitle_email}" required="true" requiredMessage="#{bundle.CreateClienteRequiredMessage_email}"/>
                     <h:outputLabel value="#{bundle.CreateClienteLabel_nombres}" for="nombres" />
                     <h:inputText id="nombres" value="#{clienteController.selected.nombres}" title="#{bundle.CreateClienteTitle_nombres}" required="true" requiredMessage="#{bundle.CreateClienteRequiredMessage_nombres}"/>
                     <h:outputLabel value="#{bundle.CreateClienteLabel_apellidos}" for="apellidos" />
-                    <h:inputText id="apellidos" value="#{clienteController.selected.apellidos}" title="#{bundle.CreateClienteTitle_apellidos}" required="true" requiredMessage="#{bundle.CreateClienteRequiredMessage_apellidos}"/>
-                    <h:outputLabel value="#{bundle.CreateClienteLabel_email}" for="email" />
-                    <h:inputText id="email" value="#{clienteController.selected.email}" title="#{bundle.CreateClienteTitle_email}" required="true" requiredMessage="#{bundle.CreateClienteRequiredMessage_email}"/>
-                    <h:outputLabel value="#{bundle.CreateClienteLabel_idEstadoCliente}" for="idEstadoCliente" />
-                    <h:selectOneMenu id="idEstadoCliente" value="#{clienteController.selected.idEstadoCliente}" title="#{bundle.CreateClienteTitle_idEstadoCliente}" required="true" requiredMessage="#{bundle.CreateClienteRequiredMessage_idEstadoCliente}">
-                        <f:selectItems value="#{estadoClienteController.itemsAvailableSelectOne}"/>
-                    </h:selectOneMenu>
+                    <h:inputText id="apellidos" value="#{clienteController.selected.apellidos}" title="#{bundle.CreateClienteTitle_apellidos}" required="true" requiredMessage="#{bundle.CreateClienteRequiredMessage_apellidos}"/>                    
+                    <h:outputLabel value="#{bundle.CreateClienteLabel_clave}" for="clave" />
+                    <h:inputSecret id="clave" value="#{clienteController.selected.clave}" title="#{bundle.CreateClienteTitle_clave}" required="true" requiredMessage="#{bundle.CreateClienteRequiredMessage_clave}"/>
                 </h:panelGrid>
                 <br />
                 <h:commandLink action="#{clienteController.create}" value="#{bundle.CreateClienteSaveLink}" />
-                <br />
-                <br />
-                <h:commandLink action="#{clienteController.prepareList}" value="#{bundle.CreateClienteShowAllLink}" immediate="true"/>
                 <br />
                 <br />
                 <h:commandLink value="#{bundle.CreateClienteIndexLink}" action="/index" immediate="true" />

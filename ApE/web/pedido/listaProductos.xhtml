@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListProductoTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputLabel value="Buscar Producto:" for="pattern"/>
+                <h:inputText id="pattern" title="Buscar Producto" value="#{productoPrecioStockController.pattern}"/>
+                <h:commandButton value="Buscar" action="#{productoPrecioStockController.consultarProductos}" />
+                <br/>
+                <h:outputText escape="false" value="#{bundle.ListProductoEmpty}" rendered="#{productoPrecioStockController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{productoPrecioStockController.items.rowCount > 0}">
+                    <h:outputText value="#{productoPrecioStockController.pagination.pageFirstItem + 1}..#{productoPrecioStockController.pagination.pageLastItem + 1}/#{productoPrecioStockController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{productoPrecioStockController.previous}" value="#{bundle.Previous} #{productoPrecioStockController.pagination.pageSize}" rendered="#{productoPrecioStockController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{productoPrecioStockController.next}" value="#{bundle.Next} #{productoPrecioStockController.pagination.pageSize}" rendered="#{productoPrecioStockController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{productoPrecioStockController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            
+                            <input type="checkbox" id="#{item.idProducto}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListProductoPrecioStockTitle_nombre}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nombre}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListProductoPrecioStockTitle_valor}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.valor}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListProductoPrecioStockTitle_cantidad}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.cantidad}"/>
+                        </h:column>
+                        <!--<h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Cantidad a Comprar"/>
+                            </f:facet>
+                            <h:inputText value="#{productoPrecioStockController.cant_comprar}" id="cant_comprar" title="Cantidad a Comprar"/>
+                        </h:column>-->
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandButton id="button1" value="Agregar a Lista" action="#{productoPrecioStock.agregarALista}"/>
+                <br />
+                <a href="javascript:window.close()">Cerrar</a>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</html>

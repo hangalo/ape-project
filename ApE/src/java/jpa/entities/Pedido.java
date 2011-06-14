@@ -6,6 +6,7 @@ package jpa.entities;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -17,6 +18,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -101,6 +103,8 @@ public class Pedido implements Serializable {
     @JoinColumn(name = "id_estado_pedido", referencedColumnName = "id_estado_pedido")
     @ManyToOne(optional = false)
     private EstadoPedido idEstadoPedido;
+    @OneToMany
+    private List<PedidoProducto> lProductos;
 
     public Pedido() {
     }
@@ -109,7 +113,7 @@ public class Pedido implements Serializable {
         this.idPedido = idPedido;
     }
 
-    public Pedido(Integer idPedido, Date fechaCreacion, float valorTotal, String destNombres, String destApellidos, String destDireccion1, String destCiudad) {
+    public Pedido(Integer idPedido, Date fechaCreacion, float valorTotal, String destNombres, String destApellidos, String destDireccion1, String destCiudad, List<PedidoProducto> lProductos) {
         this.idPedido = idPedido;
         this.fechaCreacion = fechaCreacion;
         this.valorTotal = valorTotal;
@@ -117,6 +121,7 @@ public class Pedido implements Serializable {
         this.destApellidos = destApellidos;
         this.destDireccion1 = destDireccion1;
         this.destCiudad = destCiudad;
+        this.lProductos = lProductos;
     }
 
     public Integer getIdPedido() {
@@ -230,6 +235,8 @@ public class Pedido implements Serializable {
     public void setIdEstadoPedido(EstadoPedido idEstadoPedido) {
         this.idEstadoPedido = idEstadoPedido;
     }
+    
+   
 
     @Override
     public int hashCode() {
@@ -255,6 +262,20 @@ public class Pedido implements Serializable {
     public String toString() {
         //return "jpa.entities.Pedido[ idPedido=" + idPedido + " ]";
         return ""+idPedido;
+    }
+
+    /**
+     * @return the lProductos
+     */
+    public List<PedidoProducto> getlProductos() {
+        return lProductos;
+    }
+
+    /**
+     * @param lProductos the lProductos to set
+     */
+    public void setlProductos(List<PedidoProducto> lProductos) {
+        this.lProductos = lProductos;
     }
     
 }

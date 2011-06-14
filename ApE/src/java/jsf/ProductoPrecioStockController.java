@@ -1,9 +1,9 @@
 package jsf;
 
-import jpa.entities.Cliente;
+import jpa.entities.ProductoPrecioStock;
 import jsf.util.JsfUtil;
 import jsf.util.PaginationHelper;
-import jpa.session.ClienteFacade;
+import jpa.session.ProductoPrecioStockFacade;
 
 import java.io.Serializable;
 import java.util.ResourceBundle;
@@ -18,29 +18,31 @@ import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
 
-@ManagedBean(name = "clienteController")
+@ManagedBean(name = "productoPrecioStockController")
 @SessionScoped
-public class ClienteController implements Serializable {
+public class ProductoPrecioStockController implements Serializable {
 
-    private Cliente current;
+    private ProductoPrecioStock current;
     private DataModel items = null;
     @EJB
-    private jpa.session.ClienteFacade ejbFacade;
+    private jpa.session.ProductoPrecioStockFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
+    private String pattern;
+    private int cant_comprar;
 
-    public ClienteController() {
+    public ProductoPrecioStockController() {
     }
 
-    public Cliente getSelected() {
+    public ProductoPrecioStock getSelected() {
         if (current == null) {
-            current = new Cliente();
+            current = new ProductoPrecioStock();
             selectedItemIndex = -1;
         }
         return current;
     }
 
-    private ClienteFacade getFacade() {
+    private ProductoPrecioStockFacade getFacade() {
         return ejbFacade;
     }
 
@@ -66,15 +68,23 @@ public class ClienteController implements Serializable {
         recreateModel();
         return "List";
     }
+    
+    private void consultarProductos(){
+        getFacade().buscar(getPattern());
+    }
+    
+    private void agregarALista(){
+        
+    }
 
     public String prepareView() {
-        current = (Cliente) getItems().getRowData();
+        current = (ProductoPrecioStock) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "View";
     }
 
     public String prepareCreate() {
-        current = new Cliente();
+        current = new ProductoPrecioStock();
         selectedItemIndex = -1;
         return "Create";
     }
@@ -82,7 +92,7 @@ public class ClienteController implements Serializable {
     public String create() {
         try {
             getFacade().create(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/resources/Bundle").getString("ClienteCreated"));
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/resources/Bundle").getString("ProductoPrecioStockCreated"));
             return prepareCreate();
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/resources/Bundle").getString("PersistenceErrorOccured"));
@@ -91,7 +101,7 @@ public class ClienteController implements Serializable {
     }
 
     public String prepareEdit() {
-        current = (Cliente) getItems().getRowData();
+        current = (ProductoPrecioStock) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "Edit";
     }
@@ -99,25 +109,16 @@ public class ClienteController implements Serializable {
     public String update() {
         try {
             getFacade().edit(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/resources/Bundle").getString("ClienteUpdated"));
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/resources/Bundle").getString("ProductoPrecioStockUpdated"));
             return "View";
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/resources/Bundle").getString("PersistenceErrorOccured"));
             return null;
         }
     }
-    
-    public String login() {
-        if (getFacade().ClienteLogin(current)) {
-            return "success";
-        } else {
-            JsfUtil.addErrorMessage(ResourceBundle.getBundle("/resources/Bundle").getString("ClienteLoginFailure"));
-            return "failure";
-        }
-    }
 
     public String destroy() {
-        current = (Cliente) getItems().getRowData();
+        current = (ProductoPrecioStock) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         performDestroy();
         recreateModel();
@@ -140,7 +141,7 @@ public class ClienteController implements Serializable {
     private void performDestroy() {
         try {
             getFacade().remove(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/resources/Bundle").getString("ClienteDeleted"));
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/resources/Bundle").getString("ProductoPrecioStockDeleted"));
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/resources/Bundle").getString("PersistenceErrorOccured"));
         }
@@ -192,25 +193,53 @@ public class ClienteController implements Serializable {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
     }
 
-    @FacesConverter(forClass = Cliente.class)
-    public static class ClienteControllerConverter implements Converter {
+    /**
+     * @return the pattern
+     */
+    public String getPattern() {
+        return pattern;
+    }
+
+    /**
+     * @param pattern the pattern to set
+     */
+    public void setPattern(String pattern) {
+        this.pattern = pattern;
+    }
+
+    /**
+     * @return the cant_comprar
+     */
+    public int getCant_comprar() {
+        return cant_comprar;
+    }
+
+    /**
+     * @param cant_comprar the cant_comprar to set
+     */
+    public void setCant_comprar(int cant_comprar) {
+        this.cant_comprar = cant_comprar;
+    }
+
+    @FacesConverter(forClass = ProductoPrecioStock.class)
+    public static class ProductoPrecioStockControllerConverter implements Converter {
 
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            ClienteController controller = (ClienteController) facesContext.getApplication().getELResolver().
-                    getValue(facesContext.getELContext(), null, "clienteController");
+            ProductoPrecioStockController controller = (ProductoPrecioStockController) facesContext.getApplication().getELResolver().
+                    getValue(facesContext.getELContext(), null, "productoPrecioStockController");
             return controller.ejbFacade.find(getKey(value));
         }
 
-        java.lang.Integer getKey(String value) {
-            java.lang.Integer key;
-            key = Integer.valueOf(value);
+        int getKey(String value) {
+            int key;
+            key = Integer.parseInt(value);
             return key;
         }
 
-        String getStringKey(java.lang.Integer value) {
+        String getStringKey(int value) {
             StringBuffer sb = new StringBuffer();
             sb.append(value);
             return sb.toString();
@@ -220,11 +249,11 @@ public class ClienteController implements Serializable {
             if (object == null) {
                 return null;
             }
-            if (object instanceof Cliente) {
-                Cliente o = (Cliente) object;
-                return getStringKey(o.getIdCliente());
+            if (object instanceof ProductoPrecioStock) {
+                ProductoPrecioStock o = (ProductoPrecioStock) object;
+                return getStringKey(o.getIdProducto());
             } else {
-                throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: " + ClienteController.class.getName());
+                throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: " + ProductoPrecioStockController.class.getName());
             }
         }
     }
