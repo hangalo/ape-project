@@ -1,10 +1,10 @@
-CREATE DATABASE  IF NOT EXISTS `ape` /*!40100 DEFAULT CHARACTER SET latin1 */;
+CREATE DATABASE  IF NOT EXISTS `ape` /*!40100 DEFAULT CHARACTER SET utf8 */;
 USE `ape`;
 -- MySQL dump 10.13  Distrib 5.1.40, for Win32 (ia32)
 --
 -- Host: localhost    Database: ape
 -- ------------------------------------------------------
--- Server version	5.5.12
+-- Server version	5.5.8-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -111,7 +111,7 @@ CREATE TABLE `precio_producto` (
   PRIMARY KEY (`id_precio_producto`),
   KEY `fk_precio_producto_producto1` (`id_producto`),
   CONSTRAINT `fk_precio_producto_producto1` FOREIGN KEY (`id_producto`) REFERENCES `producto` (`id_producto`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1 COMMENT='Tabla que contiene el histórico de precios por producto';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1 COMMENT='Tabla que contiene el histórico de precios por producto';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -120,7 +120,7 @@ CREATE TABLE `precio_producto` (
 
 LOCK TABLES `precio_producto` WRITE;
 /*!40000 ALTER TABLE `precio_producto` DISABLE KEYS */;
-INSERT INTO `precio_producto` VALUES (1,1,000000000010,'2011-06-11 13:20:32');
+INSERT INTO `precio_producto` VALUES (1,1,000000000010,'2011-06-11 13:20:32'),(2,1,000000000011,'2011-06-13 18:13:02');
 /*!40000 ALTER TABLE `precio_producto` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -160,6 +160,30 @@ CREATE TABLE `pedido` (
 LOCK TABLES `pedido` WRITE;
 /*!40000 ALTER TABLE `pedido` DISABLE KEYS */;
 /*!40000 ALTER TABLE `pedido` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `estado_cliente`
+--
+
+DROP TABLE IF EXISTS `estado_cliente`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `estado_cliente` (
+  `id_estado_cliente` smallint(6) NOT NULL AUTO_INCREMENT,
+  `descripcion` varchar(45) NOT NULL,
+  PRIMARY KEY (`id_estado_cliente`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1 COMMENT='Tabla que indica el estado del cliente, si es recientemente registrado, dado de alta o dado de baja';
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `estado_cliente`
+--
+
+LOCK TABLES `estado_cliente` WRITE;
+/*!40000 ALTER TABLE `estado_cliente` DISABLE KEYS */;
+INSERT INTO `estado_cliente` VALUES (1,'Nuevo'),(2,'Dado de Alta'),(3,'Dado de Baja');
+/*!40000 ALTER TABLE `estado_cliente` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -222,27 +246,30 @@ LOCK TABLES `permisos_rol` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `estado_cliente`
+-- Table structure for table `stock`
 --
 
-DROP TABLE IF EXISTS `estado_cliente`;
+DROP TABLE IF EXISTS `stock`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `estado_cliente` (
-  `id_estado_cliente` smallint(6) NOT NULL AUTO_INCREMENT,
-  `descripcion` varchar(45) NOT NULL,
-  PRIMARY KEY (`id_estado_cliente`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1 COMMENT='Tabla que indica el estado del cliente, si es recientemente registrado, dado de alta o dado de baja';
+CREATE TABLE `stock` (
+  `id_stock` int(11) NOT NULL AUTO_INCREMENT,
+  `id_producto` int(11) NOT NULL,
+  `cantidad` int(10) unsigned zerofill NOT NULL,
+  PRIMARY KEY (`id_stock`),
+  KEY `fk_stock_producto1` (`id_producto`),
+  CONSTRAINT `fk_stock_producto1` FOREIGN KEY (`id_producto`) REFERENCES `producto` (`id_producto`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1 COMMENT='Tabla que contiene el stock presente por producto';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `estado_cliente`
+-- Dumping data for table `stock`
 --
 
-LOCK TABLES `estado_cliente` WRITE;
-/*!40000 ALTER TABLE `estado_cliente` DISABLE KEYS */;
-INSERT INTO `estado_cliente` VALUES (1,'Nuevo'),(2,'Dado de Alta'),(3,'Dado de Baja');
-/*!40000 ALTER TABLE `estado_cliente` ENABLE KEYS */;
+LOCK TABLES `stock` WRITE;
+/*!40000 ALTER TABLE `stock` DISABLE KEYS */;
+INSERT INTO `stock` VALUES (1,1,0000000020);
+/*!40000 ALTER TABLE `stock` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -281,6 +308,7 @@ CREATE TABLE `cliente` (
   `nombres` varchar(45) NOT NULL,
   `apellidos` varchar(45) NOT NULL,
   `email` varchar(45) NOT NULL,
+  `clave` text NOT NULL,
   `fecha_creacion` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id_cliente`),
   UNIQUE KEY `id_cliente_UNIQUE` (`id_cliente`),
@@ -295,7 +323,7 @@ CREATE TABLE `cliente` (
 
 LOCK TABLES `cliente` WRITE;
 /*!40000 ALTER TABLE `cliente` DISABLE KEYS */;
-INSERT INTO `cliente` VALUES (2,1,'Vero','Escobar','prueba@loquesea.com','2011-04-05 20:00:00');
+INSERT INTO `cliente` VALUES (2,1,'Vero','Escobar','prueba@loquesea.com','','2011-04-05 20:00:00');
 /*!40000 ALTER TABLE `cliente` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -325,30 +353,31 @@ INSERT INTO `rol` VALUES (1,'Administrador',0);
 UNLOCK TABLES;
 
 --
--- Table structure for table `stock`
+-- Table structure for table `destinatario`
 --
 
-DROP TABLE IF EXISTS `stock`;
+DROP TABLE IF EXISTS `destinatario`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `stock` (
-  `id_stock` int(11) NOT NULL AUTO_INCREMENT,
-  `id_producto` int(11) NOT NULL,
-  `cantidad` int(10) unsigned zerofill NOT NULL,
-  PRIMARY KEY (`id_stock`),
-  KEY `fk_stock_producto1` (`id_producto`),
-  CONSTRAINT `fk_stock_producto1` FOREIGN KEY (`id_producto`) REFERENCES `producto` (`id_producto`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1 COMMENT='Tabla que contiene el stock presente por producto';
+CREATE TABLE `destinatario` (
+  `id_destinatario` int(11) NOT NULL AUTO_INCREMENT,
+  `nombres` varchar(45) NOT NULL,
+  `apellidos` varchar(45) NOT NULL,
+  `direccion1` varchar(45) NOT NULL,
+  `direccion2` varchar(45) DEFAULT NULL,
+  `ciudad` varchar(45) NOT NULL,
+  `cod_postal` int(11) NOT NULL,
+  PRIMARY KEY (`id_destinatario`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Tabla que contiene el listado de destinatarios';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `stock`
+-- Dumping data for table `destinatario`
 --
 
-LOCK TABLES `stock` WRITE;
-/*!40000 ALTER TABLE `stock` DISABLE KEYS */;
-INSERT INTO `stock` VALUES (1,1,0000000020);
-/*!40000 ALTER TABLE `stock` ENABLE KEYS */;
+LOCK TABLES `destinatario` WRITE;
+/*!40000 ALTER TABLE `destinatario` DISABLE KEYS */;
+/*!40000 ALTER TABLE `destinatario` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -360,4 +389,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2011-06-11 22:00:15
+-- Dump completed on 2011-06-16  1:14:34
