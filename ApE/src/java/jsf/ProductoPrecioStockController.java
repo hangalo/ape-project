@@ -24,11 +24,12 @@ public class ProductoPrecioStockController implements Serializable {
 
     private ProductoPrecioStock current;
     private DataModel items = null;
+    private DataModel itemsConsulta = null;
     @EJB
     private jpa.session.ProductoPrecioStockFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
-    private String pattern;
+    private String pattern = "";
     private int cant_comprar;
 
     public ProductoPrecioStockController() {
@@ -46,22 +47,28 @@ public class ProductoPrecioStockController implements Serializable {
         return ejbFacade;
     }
 
-    public PaginationHelper getPagination() {
-        if (pagination == null) {
-            pagination = new PaginationHelper(10) {
-
-                @Override
-                public int getItemsCount() {
-                    return getFacade().count();
-                }
-
-                @Override
-                public DataModel createPageDataModel() {
-                    return new ListDataModel(getFacade().findRange(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()}));
-                }
-            };
-        }
-        return pagination;
+//    public PaginationHelper nuevaBusqueda() {
+//        if (pagination == null) {
+//            pagination = new PaginationHelper(10) {
+//
+//                @Override
+//                public int getItemsCount() {
+//                    return getFacade().count();
+//                }
+//
+//                @Override
+//                public DataModel createPageDataModel() {
+//                    return new ListDataModel(getFacade().findRange(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()}));
+//                }
+//            };
+//        }
+//        return pagination;
+//    }
+    
+    public String consultarProductos(){
+        recreateModel();
+        pagination = null;
+        return "listado";
     }
 
     public String prepareList() {
@@ -69,8 +76,22 @@ public class ProductoPrecioStockController implements Serializable {
         return "List";
     }
     
-    private void consultarProductos(){
-        getFacade().buscar(getPattern());
+    public PaginationHelper getPagination(){
+        if (pagination == null) {
+            pagination = new PaginationHelper(10) {
+
+                @Override
+                public int getItemsCount() {
+                    return getFacade().count();
+                }
+       
+                @Override
+                public DataModel createPageDataModel() {
+                    return new ListDataModel(getFacade().buscar(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()}, getPattern()));
+                }
+            };
+        }
+        return pagination;
     }
     
     private void agregarALista(){
@@ -163,6 +184,7 @@ public class ProductoPrecioStockController implements Serializable {
     }
 
     public DataModel getItems() {
+        System.out.println("getItems()");
         if (items == null) {
             items = getPagination().createPageDataModel();
         }
