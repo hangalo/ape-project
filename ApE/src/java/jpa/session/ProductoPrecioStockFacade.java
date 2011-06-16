@@ -27,10 +27,12 @@ public class ProductoPrecioStockFacade extends AbstractFacade<ProductoPrecioStoc
         super(ProductoPrecioStock.class);
     }
     
-    public List<ProductoPrecioStock> buscar(String pattern) {
-        return em.createNamedQuery("Producto.findByNombreLike")
-                .setParameter("nombre", pattern)
-                .getResultList();
+    public List<ProductoPrecioStock> buscar(int[] range, String pattern) {
+        javax.persistence.Query q = getEntityManager().createNamedQuery("ProductoPrecioStock.findByNombreLike")
+                .setParameter("nombre", "%"+pattern+"%");
+        q.setMaxResults(range[1] - range[0]);
+        q.setFirstResult(range[0]);
+        return q.getResultList();
     }
     
 }
